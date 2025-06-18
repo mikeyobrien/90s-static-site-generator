@@ -1,0 +1,11 @@
+# Configuration for default 90s theme example
+title: "My Radical 90s Website"
+author: "WebMaster"
+description: "Welcome to the World Wide Web!"
+tagline: "Best viewed in Netscape Navigator 4.0+"
+
+# Use the default theme
+theme: default
+
+# Output directory
+outputDir: output

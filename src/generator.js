@@ -145,18 +145,32 @@ class Generator {
       await fs.readFile(templatePath, 'utf-8') : 
       '<%- page.content %>';
     
+    // Prepare template data
+    const site = {
+      title: this.config.siteTitle,
+      description: this.config.siteDescription,
+      author: this.config.siteAuthor,
+      tagline: this.config.siteTagline,
+      baseUrl: this.config.baseUrl
+    };
+    
+    const templateData = {
+      // Direct properties for minimal-90s theme
+      ...pageData,
+      site,
+      // Page object for default theme
+      page: pageData
+    };
+    
     // Render content with specific template
-    const renderedContent = ejs.render(contentTemplate, {
-      page: pageData,
-      site: this.config
-    });
+    const renderedContent = ejs.render(contentTemplate, templateData);
     
     // Render with base layout
     const layout = await fs.readFile(layoutPath, 'utf-8');
     const finalHtml = ejs.render(layout, {
-      page: { ...pageData, content: renderedContent },
-      site: this.config,
-      content: renderedContent
+      ...templateData,
+      body: renderedContent,
+      content: renderedContent // For compatibility
     });
     
     return finalHtml;

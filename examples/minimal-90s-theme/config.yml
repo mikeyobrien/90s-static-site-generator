@@ -1,0 +1,11 @@
+# Configuration for minimal-90s theme example
+title: "My Personal Blog"
+author: "Jane Doe"
+description: "A personal blog about technology, life, and the early web"
+tagline: "Thoughts from the Information Superhighway"
+
+# Use the minimal-90s theme
+theme: minimal-90s
+
+# Output directory
+outputDir: output
