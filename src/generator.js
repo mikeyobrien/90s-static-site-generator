@@ -187,16 +187,28 @@ class Generator {
   }
 
   async copyThemeAssets() {
-    const themeAssetsSource = path.join(
+    // Copy entire theme directory to output
+    const themeSource = path.join(
       this.config.themesDir,
-      this.config.theme,
-      'css'
+      this.config.theme
     );
-    const themeAssetsTarget = path.join(this.config.outputDir, 'css');
+    const themeTarget = path.join(
+      this.config.outputDir,
+      'themes',
+      this.config.theme
+    );
     
-    if (await fs.pathExists(themeAssetsSource)) {
-      await fs.copy(themeAssetsSource, themeAssetsTarget);
-      console.log('Copied theme CSS');
+    if (await fs.pathExists(themeSource)) {
+      await fs.copy(themeSource, themeTarget);
+      console.log(`Copied theme assets for ${this.config.theme}`);
+    }
+    
+    // Also copy CSS to root for backward compatibility with default theme
+    const cssSource = path.join(themeSource, 'css');
+    const cssTarget = path.join(this.config.outputDir, 'css');
+    
+    if (await fs.pathExists(cssSource)) {
+      await fs.copy(cssSource, cssTarget);
     }
   }
 }
