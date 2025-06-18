@@ -48,7 +48,6 @@ body {
 
 /* Main container */
 .container {
-  max-width: 640px;
   width: 100%;
   margin: 0 auto;
   background-color: var(--bg-color);
@@ -132,8 +131,10 @@ a:hover {
 
 /* Content area */
 .content {
-  padding: 20px;
+  padding: 20px 40px;
   min-height: 400px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* Blog post styles */
