@@ -48,7 +48,8 @@ body {
 
 /* Main container */
 .container {
-  width: 640px;
+  max-width: 640px;
+  width: 100%;
   margin: 0 auto;
   background-color: var(--bg-color);
   border-left: 1px solid var(--border-color);
@@ -308,4 +309,99 @@ ul.bullet-list li:before {
 [data-theme="light"] body {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAEklEQVQImWNgYGD4z0AswK4SAFXuAf8EPy+xAAAAAElFTkSuQmCC');
   background-repeat: repeat;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 680px) {
+  /* Add padding on small screens */
+  body {
+    font-size: 16px; /* Slightly larger for mobile readability */
+  }
+  
+  .container {
+    border-left: none;
+    border-right: none;
+  }
+  
+  /* Make tables responsive */
+  table {
+    width: 100% !important;
+  }
+  
+  /* Adjust padding for mobile */
+  .site-header {
+    padding: 15px;
+  }
+  
+  .site-title {
+    font-size: 24px;
+  }
+  
+  .nav-bar {
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .content {
+    padding: 15px;
+  }
+  
+  /* Make code blocks scrollable on mobile */
+  pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  /* Adjust post entry spacing */
+  .post-entry {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+  }
+  
+  /* Dark mode toggle positioning for mobile */
+  .theme-toggle {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+  }
+  
+  .theme-toggle button {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+  
+  /* Archive list on mobile */
+  .archive-date {
+    display: block;
+    width: auto;
+    margin-bottom: 5px;
+  }
+  
+  /* Footer adjustments */
+  .site-footer {
+    padding: 15px;
+    font-size: 10px;
+  }
+}
+
+/* Tablet styles */
+@media screen and (min-width: 481px) and (max-width: 680px) {
+  .content {
+    padding: 20px;
+  }
+  
+  .site-header {
+    padding: 20px;
+  }
+}
+
+/* Ensure images don't break layout */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Make embedded content responsive */
+iframe, embed, object {
+  max-width: 100%;
 }
