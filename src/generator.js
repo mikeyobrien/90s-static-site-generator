@@ -96,6 +96,16 @@ class Generator {
     // Convert markdown to HTML
     const html = this.md.render(markdown);
     
+    // Generate output path
+    const relativePath = path.relative(this.config.contentDir, filePath);
+    const outputPath = path.join(
+      this.config.outputDir,
+      relativePath.replace('.md', '.html')
+    );
+    
+    // Generate URL from relative path
+    const url = '/' + relativePath.replace('.md', '.html').replace(/\\/g, '/');
+    
     // Prepare page data
     const pageData = {
       title: frontMatter.title || 'Untitled',
@@ -104,15 +114,10 @@ class Generator {
       tags: frontMatter.tags || [],
       content: html,
       type: type,
+      url: url,
+      slug: path.basename(filePath, '.md'),
       ...frontMatter
     };
-    
-    // Generate output path
-    const relativePath = path.relative(this.config.contentDir, filePath);
-    const outputPath = path.join(
-      this.config.outputDir,
-      relativePath.replace('.md', '.html')
-    );
     
     // Render with template
     const renderedHtml = await this.renderTemplate(pageData, type);
