@@ -1,0 +1,15 @@
+<%# Hit counter component %>
+<center>
+  <table border="0" cellpadding="5" cellspacing="0">
+    <tr>
+      <td>
+        <font size="2" face="Arial, sans-serif">You are visitor number:</font>
+      </td>
+      <td>
+        <span class="counter">
+          <%= String(count || '0031337').padStart(7, '0') %>
+        </span>
+      </td>
+    </tr>
+  </table>
+</center>

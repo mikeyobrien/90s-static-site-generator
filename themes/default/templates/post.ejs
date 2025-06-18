@@ -1,4 +1,9 @@
-<h1><%= page.title %></h1>
+<h1>
+    <%= page.title %>
+    <% if (page.isNew && theme && theme.effects) { %>
+    <%- include('../partials/new-badge') %>
+    <% } %>
+</h1>
 
 <table width="100%" border="0" cellpadding="5" cellspacing="0">
     <tr>
@@ -18,8 +23,30 @@
 
 <%- page.content %>
 
-<hr>
+<% if (theme && theme.effects && theme.effects.flames) { %>
+<hr class="flame">
+<% } else { %>
+<hr class="shadow">
+<% } %>
 
 <center>
-    <a href="/">Back to Home</a>
+    <table border="0" cellpadding="10" cellspacing="0">
+        <tr>
+            <td>
+                <a href="/">
+                    <img src="/images/icons/globe.gif" alt="Home" border="0" width="32" height="32">
+                    <br>
+                    <font size="2">Back to Home</font>
+                </a>
+            </td>
+            <% if (page.email) { %>
+            <td>
+                <%- include('../partials/email-link', { 
+                    email: page.email, 
+                    text: 'Email Author' 
+                }) %>
+            </td>
+            <% } %>
+        </tr>
+    </table>
 </center>

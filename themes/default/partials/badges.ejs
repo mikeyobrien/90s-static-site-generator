@@ -1,0 +1,42 @@
+<%# Browser and technology badges %>
+<center>
+  <table border="0" cellpadding="5" cellspacing="0">
+    <tr>
+      <% if (badges.netscape !== false) { %>
+      <td>
+        <a href="http://www.netscape.com" target="_blank">
+          <img src="/images/badges/netscape.gif" 
+               alt="Best viewed with Netscape Navigator" 
+               width="88" height="31" border="0">
+        </a>
+      </td>
+      <% } %>
+      
+      <% if (badges.ie !== false) { %>
+      <td>
+        <a href="http://www.microsoft.com/ie" target="_blank">
+          <img src="/images/badges/ie.gif" 
+               alt="Internet Explorer" 
+               width="88" height="31" border="0">
+        </a>
+      </td>
+      <% } %>
+      
+      <% if (badges.resolution) { %>
+      <td>
+        <img src="/images/badges/800x600.gif" 
+             alt="Best viewed at <%= badges.resolution || '800x600' %>" 
+             width="88" height="31" border="0">
+      </td>
+      <% } %>
+      
+      <% if (badges.html) { %>
+      <td>
+        <img src="/images/badges/html.gif" 
+             alt="Made with HTML" 
+             width="88" height="31" border="0">
+      </td>
+      <% } %>
+    </tr>
+  </table>
+</center>

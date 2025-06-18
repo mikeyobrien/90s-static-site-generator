@@ -74,19 +74,22 @@ This is written in **Markdown** but will be rendered with 90s style!
 
 This project is currently under active development. Check our [GitHub Issues](https://github.com/mikeyobrien/90s-static-site-generator/issues) for the implementation roadmap.
 
-### Current Status: Step 2 - Basic Static Site Generation ✅
+### Current Status: Step 3 - Authentic 90s Design Elements ✅
 
 - [x] Basic CLI structure
 - [x] Command routing (new, build, server)
 - [x] Help system
 - [x] Markdown to HTML conversion
 - [x] Front matter parsing (YAML)
-- [x] EJS template system
-- [x] Basic 90s theme with authentic styling
-- [x] Static asset copying
-- [ ] Site creation wizard (Step 3)
-- [ ] Advanced theming (Step 4)
-- [ ] Navigation generation (Step 5)
+- [x] EJS template system with partials
+- [x] Comprehensive 90s CSS styling
+- [x] Multiple theme variants
+- [x] 90s visual effects and components
+- [x] Asset library with GIFs and patterns
+- [x] Theme configuration system
+- [ ] Site navigation generation (Step 4)
+- [ ] Hit counter and guestbook (Step 5)
+- [ ] WebRing integration (Step 6)
 - [ ] And more...
 
 ## 🧪 Testing
@@ -120,13 +123,19 @@ my-site/
 
 ## 🌟 Features
 
-### Currently Implemented (Step 2)
+### Currently Implemented (Step 2-3)
 - **Markdown Processing** - Full CommonMark support with code highlighting
 - **Front Matter** - YAML metadata for posts and pages
-- **EJS Templates** - Flexible templating with layouts
+- **EJS Templates** - Flexible templating with layouts and partials
 - **90s Styling** - Authentic retro CSS with table layouts
+- **Theme System** - Multiple theme variants (Personal, Corporate, Hacker)
+- **90s Components** - Marquees, counters, webrings, badges, and more!
+- **Visual Effects** - Blink text, rainbow gradients, glow effects
+- **Asset Library** - Pre-built GIFs and patterns for authentic 90s look
 - **Asset Management** - Automatic copying of images and files
 - **Debug Logging** - Detailed build output for troubleshooting
+
+See [THEMING.md](docs/THEMING.md) for complete theme customization guide!
 
 ## 🤝 Contributing
 
