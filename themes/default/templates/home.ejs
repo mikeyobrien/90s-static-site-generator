@@ -1,0 +1,216 @@
+<%# Classic 90s Homepage Template %>
+
+<!-- Welcome Banner -->
+<center>
+  <table border="3" cellpadding="10" cellspacing="0" bgcolor="#FFFF00">
+    <tr>
+      <td>
+        <center>
+          <font size="6" face="Arial Black, sans-serif" class="text-rainbow">
+            <b>WELCOME TO <%= site.siteTitle.toUpperCase() %>!</b>
+          </font>
+          <br>
+          <font size="4" face="Comic Sans MS, cursive">
+            <%= site.siteDescription %>
+          </font>
+        </center>
+      </td>
+    </tr>
+  </table>
+</center>
+
+<br>
+
+<!-- Last Updated & Counter -->
+<center>
+  <table border="0" cellpadding="5" cellspacing="0">
+    <tr>
+      <td bgcolor="#E0E0E0">
+        <font size="2" face="Arial, sans-serif">
+          <b>Last Updated:</b> <span id="lastModified"><%= page.lastUpdated %></span>
+        </font>
+      </td>
+      <td width="20"></td>
+      <td bgcolor="#E0E0E0">
+        <font size="2" face="Arial, sans-serif">
+          <b>You are visitor #</b>
+          <span class="counter"><%= page.visitorCount %></span>
+        </font>
+      </td>
+    </tr>
+  </table>
+</center>
+
+<br>
+
+<!-- Main Content Table -->
+<table width="100%" border="0" cellpadding="0" cellspacing="20">
+  <tr>
+    <!-- Left Column - Recent Posts -->
+    <td width="60%" valign="top">
+      <table width="100%" border="2" cellpadding="10" cellspacing="0" bgcolor="#FFFFFF">
+        <tr>
+          <td bgcolor="#000080">
+            <font color="#FFFFFF" size="4" face="Arial, sans-serif">
+              <b>📰 Recent Updates</b>
+            </font>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <% if (navigation.recentPosts && navigation.recentPosts.length > 0) { %>
+              <% navigation.recentPosts.forEach(function(post) { %>
+                <table width="100%" border="0" cellpadding="5" cellspacing="0">
+                  <tr>
+                    <td>
+                      <font size="3" face="Arial, sans-serif">
+                        <% if (post.isNew) { %>
+                          <%- include('../partials/new-badge') %>
+                        <% } %>
+                        <a href="<%= post.url %>"><b><%= post.title %></b></a>
+                      </font>
+                      <br>
+                      <font size="2" color="#666666">
+                        Posted on <%= post.date %>
+                      </font>
+                    </td>
+                  </tr>
+                </table>
+                <hr>
+              <% }); %>
+            <% } else { %>
+              <font size="3" face="Arial, sans-serif">
+                No posts yet! Check back soon!
+              </font>
+            <% } %>
+          </td>
+        </tr>
+      </table>
+    </td>
+    
+    <!-- Right Column - Quick Links & Features -->
+    <td width="40%" valign="top">
+      <!-- Quick Links -->
+      <table width="100%" border="2" cellpadding="10" cellspacing="0" bgcolor="#FFFFCC">
+        <tr>
+          <td bgcolor="#FF6600">
+            <font color="#FFFFFF" size="4" face="Arial, sans-serif">
+              <b>🔗 Quick Links</b>
+            </font>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <font size="2" face="Arial, sans-serif">
+              <% navigation.pages.forEach(function(page) { %>
+                <img src="/images/icons/star.gif" alt="*" width="12" height="12">
+                <a href="<%= page.url %>"><%= page.title %></a><br>
+              <% }); %>
+              <hr>
+              <img src="/images/icons/star.gif" alt="*" width="12" height="12">
+              <a href="/sitemap.html">Complete Site Map</a><br>
+              <% if (theme && theme.components && theme.components.guestbook) { %>
+                <img src="/images/icons/star.gif" alt="*" width="12" height="12">
+                <a href="/guestbook.html">Sign My Guestbook!</a><br>
+              <% } %>
+            </font>
+          </td>
+        </tr>
+      </table>
+      
+      <br>
+      
+      <!-- Random Quote -->
+      <table width="100%" border="2" cellpadding="10" cellspacing="0" bgcolor="#CCFFCC">
+        <tr>
+          <td bgcolor="#008000">
+            <font color="#FFFFFF" size="4" face="Arial, sans-serif">
+              <b>💭 Quote of the Day</b>
+            </font>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <font size="2" face="Comic Sans MS, cursive">
+              <i id="randomQuote">"The Internet is becoming the town square for the global village of tomorrow."</i>
+              <br>
+              <div align="right">- Bill Gates</div>
+            </font>
+          </td>
+        </tr>
+      </table>
+      
+      <br>
+      
+      <!-- Clock -->
+      <table width="100%" border="2" cellpadding="10" cellspacing="0" bgcolor="#FFE0E0">
+        <tr>
+          <td align="center">
+            <font size="3" face="Courier New, monospace">
+              <b>Current Time:</b><br>
+              <span id="clock">Loading...</span>
+            </font>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<br>
+
+<!-- Fun Section -->
+<center>
+  <table border="0" cellpadding="10" cellspacing="0">
+    <tr>
+      <td>
+        <%- include('../partials/under-construction') %>
+      </td>
+    </tr>
+  </table>
+</center>
+
+<!-- 90s JavaScript -->
+<script type="text/javascript">
+// Update clock
+function updateClock() {
+  var now = new Date();
+  var hours = now.getHours();
+  var minutes = now.getMinutes();
+  var seconds = now.getSeconds();
+  var ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  seconds = seconds < 10 ? '0' + seconds : seconds;
+  
+  var timeString = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+  document.getElementById('clock').innerHTML = timeString;
+  
+  setTimeout(updateClock, 1000);
+}
+
+// Random quotes
+var quotes = [
+  { text: "The Internet is becoming the town square for the global village of tomorrow.", author: "Bill Gates" },
+  { text: "Information wants to be free.", author: "Stewart Brand" },
+  { text: "On the Internet, nobody knows you're a dog.", author: "Peter Steiner" },
+  { text: "The Internet is the most important single development in the history of human communication since the invention of call waiting.", author: "Dave Barry" },
+  { text: "Cyberspace. A consensual hallucination experienced daily by billions.", author: "William Gibson" }
+];
+
+function showRandomQuote() {
+  var quote = quotes[Math.floor(Math.random() * quotes.length)];
+  document.getElementById('randomQuote').innerHTML = 
+    '<i>"' + quote.text + '"</i><br><div align="right">- ' + quote.author + '</div>';
+}
+
+// Initialize on load
+window.onload = function() {
+  updateClock();
+  showRandomQuote();
+  
+  // Update last modified
+  document.getElementById('lastModified').innerHTML = document.lastModified;
+}
+</script>

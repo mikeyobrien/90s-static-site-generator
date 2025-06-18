@@ -29,6 +29,9 @@
                 <% } %>
                 
                 <!-- Navigation -->
+                <% if (navigation && navigation.pages) { %>
+                <%- include('partials/navigation-horizontal') %>
+                <% } else { %>
                 <table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#C0C0C0">
                     <tr>
                         <td>
@@ -41,6 +44,7 @@
                         </td>
                     </tr>
                 </table>
+                <% } %>
                 
                 <!-- Main Content -->
                 <table width="100%" border="0" cellpadding="20" cellspacing="0" bgcolor="#FFFFFF">
@@ -108,5 +112,16 @@
             </td>
         </tr>
     </table>
+    
+    <!-- 90s JavaScript Effects -->
+    <script type="text/javascript">
+    // Pass navigation data to JavaScript
+    window.siteName = "<%= site.siteTitle %>";
+    <% if (navigation) { %>
+    window.navigationPages = <%= JSON.stringify(navigation.pages || []) %>;
+    window.navigationPosts = <%= JSON.stringify(navigation.recentPosts || []) %>;
+    <% } %>
+    </script>
+    <script type="text/javascript" src="/js/90s-effects.js"></script>
 </body>
 </html>

@@ -29,6 +29,10 @@
 <hr class="shadow">
 <% } %>
 
+<%# Post navigation %>
+<% if (page.prevPost || page.nextPost) { %>
+<%- include('../partials/post-navigation') %>
+<% } else { %>
 <center>
     <table border="0" cellpadding="10" cellspacing="0">
         <tr>
@@ -50,3 +54,4 @@
         </tr>
     </table>
 </center>
+<% } %>

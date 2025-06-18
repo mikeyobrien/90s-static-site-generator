@@ -74,7 +74,7 @@ This is written in **Markdown** but will be rendered with 90s style!
 
 This project is currently under active development. Check our [GitHub Issues](https://github.com/mikeyobrien/90s-static-site-generator/issues) for the implementation roadmap.
 
-### Current Status: Step 3 - Authentic 90s Design Elements ✅
+### Current Status: Step 4 - Site Navigation and Home Page ✅
 
 - [x] Basic CLI structure
 - [x] Command routing (new, build, server)
@@ -87,7 +87,10 @@ This project is currently under active development. Check our [GitHub Issues](ht
 - [x] 90s visual effects and components
 - [x] Asset library with GIFs and patterns
 - [x] Theme configuration system
-- [ ] Site navigation generation (Step 4)
+- [x] Automatic navigation generation
+- [x] Home page with recent posts
+- [x] Sitemap generation
+- [x] JavaScript 90s effects
 - [ ] Hit counter and guestbook (Step 5)
 - [ ] WebRing integration (Step 6)
 - [ ] And more...
@@ -123,7 +126,7 @@ my-site/
 
 ## 🌟 Features
 
-### Currently Implemented (Step 2-3)
+### Currently Implemented (Step 2-4)
 - **Markdown Processing** - Full CommonMark support with code highlighting
 - **Front Matter** - YAML metadata for posts and pages
 - **EJS Templates** - Flexible templating with layouts and partials
@@ -132,10 +135,16 @@ my-site/
 - **90s Components** - Marquees, counters, webrings, badges, and more!
 - **Visual Effects** - Blink text, rainbow gradients, glow effects
 - **Asset Library** - Pre-built GIFs and patterns for authentic 90s look
+- **Navigation System** - Auto-generated menus, breadcrumbs, and post navigation
+- **Home Page Generation** - Classic 90s homepage with recent posts and features
+- **Sitemap Generation** - Automatic HTML sitemap creation
+- **JavaScript Effects** - Status bar scrolling, random pages, and more
 - **Asset Management** - Automatic copying of images and files
 - **Debug Logging** - Detailed build output for troubleshooting
 
-See [THEMING.md](docs/THEMING.md) for complete theme customization guide!
+See documentation:
+- [THEMING.md](docs/THEMING.md) - Theme customization guide
+- [NAVIGATION.md](docs/NAVIGATION.md) - Navigation system guide
 
 ## 🤝 Contributing
 
