@@ -27,7 +27,42 @@ npm link
 
 ## 🎮 Usage
 
-### Create a New Site
+### Quick Start
+```bash
+# Create a directory for your site
+mkdir my-90s-site && cd my-90s-site
+
+# Create a config file
+cat > config.yml << EOF
+title: "My Awesome 90s Site"
+author: "Your Name"
+description: "Welcome to my corner of the web!"
+theme: minimal-90s  # or 'default' for full 90s experience
+EOF
+
+# Create content directories
+mkdir -p content/{posts,pages,assets}
+
+# Create your first post
+cat > content/posts/hello-world.md << EOF
+---
+title: Hello World!
+date: 2025-01-18
+---
+
+# Welcome to my site!
+
+This is my first post on the World Wide Web!
+EOF
+
+# Build your site
+retro-ssg build
+
+# View your site
+python3 -m http.server 8000 --directory output
+```
+
+### Create a New Site (Coming Soon)
 ```bash
 retro-ssg new my-awesome-site
 cd my-awesome-site
@@ -42,15 +77,35 @@ retro-ssg build
 ```
 
 The build command will:
+- Read site configuration from `config.yml` (if present)
 - Process all Markdown files in `content/posts/` and `content/pages/`
 - Parse YAML front matter for metadata
 - Convert Markdown to HTML
-- Apply the retro 90s theme
-- Copy static assets from `content/assets/`
+- Apply the selected theme (from config.yml or default)
+- Generate an index page with recent posts
+- Copy static assets from `content/assets/` and theme assets
 
 ### Start Development Server
 ```bash
 retro-ssg server
+```
+
+## ⚙️ Configuration
+
+Create a `config.yml` file in your site root to configure your site:
+
+```yaml
+# Site metadata
+title: "My Radical 90s Website"
+author: "WebMaster"
+description: "Welcome to the World Wide Web!"
+tagline: "Best viewed in Netscape Navigator 4.0+"
+
+# Theme selection
+theme: default  # or 'minimal-90s'
+
+# Output directory (optional, defaults to 'output')
+outputDir: output
 ```
 
 ## 📝 Content Structure
