@@ -7,6 +7,7 @@ A clean, minimalist blog theme for Retro-SSG that captures authentic 90s web des
 - **Clean, Single-Column Layout**: Focus on readability with a simple blog layout
 - **Dark Mode Support**: Toggle between light and dark themes with persistent preference
 - **Authentic 90s HTML**: Table-based layout using period-appropriate HTML practices
+- **Responsive Design**: Works beautifully on mobile, tablet, and desktop devices
 - **No Distractions**: No animated GIFs, marquees, or flashing elements
 - **Professional Typography**: Times New Roman for body text, Arial for headers
 - **Simple Navigation**: Clean post navigation with Previous | Home | Next links
@@ -58,8 +59,10 @@ You can customize the theme by:
 
 This theme uses authentic 90s HTML practices for maximum compatibility:
 - HTML 4.01 Transitional
-- Table-based layout
-- No modern CSS features
+- Table-based layout  
+- CSS media queries for responsive design (progressive enhancement)
 - JavaScript used only for dark mode toggle
+
+The theme maintains the authentic 90s table-based structure while using CSS to make it responsive on modern devices. Desktop users get the classic fixed-width experience, while mobile users get a fluid, readable layout.
 
 Perfect for personal blogs, journals, and minimalist websites that want to capture the 90s web aesthetic without overwhelming visitors.
