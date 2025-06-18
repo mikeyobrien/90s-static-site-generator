@@ -43,6 +43,12 @@ class Generator {
       
       console.log(`Processed ${posts.length} posts and ${pages.length} pages`);
       
+      // Sort posts by date (newest first)
+      posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+      
+      // Generate index page
+      await this.generateIndexPage(posts);
+      
       // Copy static assets
       await this.copyAssets();
       
@@ -183,6 +189,78 @@ class Generator {
     if (await fs.pathExists(assetsSource)) {
       await fs.copy(assetsSource, assetsTarget);
       console.log('Copied content assets');
+    }
+  }
+
+  async generateIndexPage(posts) {
+    // Check if theme has an index template
+    const indexTemplatePath = path.join(
+      this.config.themesDir,
+      this.config.theme,
+      'templates',
+      'index.ejs'
+    );
+    
+    const hasIndexTemplate = await fs.pathExists(indexTemplatePath);
+    
+    if (!hasIndexTemplate) {
+      // Use a default index template if theme doesn't provide one
+      console.log('No index template found, using default post listing');
+      
+      // Create a simple index page data
+      const indexData = {
+        title: 'Home',
+        content: '<h1>Recent Posts</h1>',
+        posts: posts.slice(0, 10), // Show latest 10 posts
+        date: new Date()
+      };
+      
+      // Render as a page
+      const renderedHtml = await this.renderTemplate(indexData, 'page');
+      const outputPath = path.join(this.config.outputDir, 'index.html');
+      
+      await fs.writeFile(outputPath, renderedHtml);
+      console.log(`Generated: ${outputPath}`);
+    } else {
+      // Use the theme's index template
+      const indexTemplate = await fs.readFile(indexTemplatePath, 'utf-8');
+      const layoutPath = path.join(
+        this.config.themesDir,
+        this.config.theme,
+        'layouts',
+        'base.ejs'
+      );
+      
+      // Prepare template data
+      const site = {
+        title: this.config.siteTitle,
+        description: this.config.siteDescription,
+        author: this.config.siteAuthor,
+        tagline: this.config.siteTagline,
+        baseUrl: this.config.baseUrl
+      };
+      
+      const templateData = {
+        title: 'Home',
+        posts: posts.slice(0, 10), // Show latest 10 posts
+        site,
+        page: { title: 'Home' }
+      };
+      
+      // Render index template
+      const renderedContent = ejs.render(indexTemplate, templateData);
+      
+      // Render with base layout
+      const layout = await fs.readFile(layoutPath, 'utf-8');
+      const finalHtml = ejs.render(layout, {
+        ...templateData,
+        body: renderedContent,
+        content: renderedContent
+      });
+      
+      const outputPath = path.join(this.config.outputDir, 'index.html');
+      await fs.writeFile(outputPath, finalHtml);
+      console.log(`Generated index page: ${outputPath}`);
     }
   }
 
