@@ -7,8 +7,9 @@
     <meta name="author" content="<%= page.author || 'Anonymous' %>">
     <meta name="generator" content="90s Static Site Generator">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/90s.css">
 </head>
-<body>
+<body class="<%= site.bodyClass || 'theme-personal' %> <%= site.themeBackground === 'stars' ? 'bg-stars' : site.themeBackground === 'grid' ? 'bg-grid' : '' %>">
     <table width="800" border="0" cellpadding="0" cellspacing="0" align="center">
         <tr>
             <td>
@@ -17,11 +18,15 @@
                     <tr>
                         <td>
                             <font color="#FFFFFF" size="5" face="Arial, Helvetica, sans-serif">
-                                <b><%= site.siteTitle %></b>
+                                <b class="<%= theme && theme.effects && theme.effects.rainbow ? 'text-rainbow' : '' %>"><%= site.siteTitle %></b>
                             </font>
                         </td>
                     </tr>
                 </table>
+                
+                <% if (theme && theme.effects && theme.effects.marquee) { %>
+                <%- include('partials/marquee', { text: 'Welcome to ' + site.siteTitle + '! Best viewed in Netscape Navigator 4.0+' }) %>
+                <% } %>
                 
                 <!-- Navigation -->
                 <table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#C0C0C0">
@@ -41,6 +46,10 @@
                 <table width="100%" border="0" cellpadding="20" cellspacing="0" bgcolor="#FFFFFF">
                     <tr>
                         <td>
+                            <% if (theme && theme.components && theme.components.construction && page.underConstruction) { %>
+                            <%- include('partials/under-construction') %>
+                            <% } %>
+                            
                             <%- content %>
                         </td>
                     </tr>
@@ -59,13 +68,43 @@
                     </tr>
                 </table>
                 
-                <!-- Hit Counter Placeholder -->
+                <!-- Hit Counter -->
+                <% if (theme && theme.components && theme.components.counter) { %>
+                <br>
+                <%- include('partials/counter', { count: 31337 }) %>
+                <% } %>
+                
+                <!-- Webring -->
+                <% if (theme && theme.components && theme.components.webring) { %>
+                <br>
+                <%- include('partials/webring', { 
+                    ringName: '90s Web Enthusiasts Ring',
+                    prevUrl: '#',
+                    nextUrl: '#',
+                    randomUrl: '#',
+                    listUrl: '#'
+                }) %>
+                <% } %>
+                
+                <!-- Browser Badges -->
+                <% if (theme && theme.components && theme.components.badges) { %>
+                <br>
+                <%- include('partials/badges', { 
+                    badges: {
+                        netscape: true,
+                        resolution: '800x600',
+                        html: true
+                    }
+                }) %>
+                <% } %>
+                
+                <% if (theme && theme.layout && theme.layout.width) { %>
                 <center>
-                    <br>
-                    <img src="/images/counter.gif" alt="Hit Counter">
-                    <br>
-                    <font size="2">You are visitor number <b>31337</b></font>
+                    <font size="1" color="#808080">
+                        Best viewed at <%= theme.layout.width %>x600 resolution
+                    </font>
                 </center>
+                <% } %>
             </td>
         </tr>
     </table>

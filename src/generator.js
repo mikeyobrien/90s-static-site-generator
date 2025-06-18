@@ -14,6 +14,7 @@ class Generator {
       outputDir: config.outputDir || 'output',
       themesDir: config.themesDir || 'themes',
       theme: config.theme || 'default',
+      themeVariant: config.themeVariant || 'personal',
       siteTitle: config.siteTitle || 'My 90s Website',
       siteDescription: config.siteDescription || 'Welcome to the World Wide Web!',
       baseUrl: config.baseUrl || '',
@@ -26,6 +27,9 @@ class Generator {
       typographer: true
     });
     
+    this.themeConfig = null;
+    this.themeOptions = {};
+    
     console.log('Generator initialized with config:', this.config);
   }
 
@@ -33,6 +37,9 @@ class Generator {
     console.log('Starting site build...');
     
     try {
+      // Load theme configuration
+      await this.loadThemeConfig();
+      
       // Clean output directory
       await fs.emptyDir(this.config.outputDir);
       console.log(`Cleaned output directory: ${this.config.outputDir}`);
@@ -46,7 +53,7 @@ class Generator {
       // Copy static assets
       await this.copyAssets();
       
-      // Copy theme CSS
+      // Copy theme CSS and assets
       await this.copyThemeAssets();
       
       console.log('Build completed successfully!');
@@ -148,7 +155,9 @@ class Generator {
     // Render content with specific template
     const renderedContent = ejs.render(contentTemplate, {
       page: pageData,
-      site: this.config
+      site: this.config,
+      theme: this.themeOptions,
+      themeConfig: this.themeConfig
     });
     
     // Render with base layout
@@ -156,7 +165,12 @@ class Generator {
     const finalHtml = ejs.render(layout, {
       page: { ...pageData, content: renderedContent },
       site: this.config,
+      theme: this.themeOptions,
+      themeConfig: this.themeConfig,
       content: renderedContent
+    }, {
+      filename: layoutPath,
+      root: path.join(this.config.themesDir, this.config.theme)
     });
     
     return finalHtml;
@@ -173,17 +187,68 @@ class Generator {
   }
 
   async copyThemeAssets() {
-    const themeAssetsSource = path.join(
-      this.config.themesDir,
-      this.config.theme,
-      'css'
-    );
-    const themeAssetsTarget = path.join(this.config.outputDir, 'css');
+    const themePath = path.join(this.config.themesDir, this.config.theme);
     
-    if (await fs.pathExists(themeAssetsSource)) {
-      await fs.copy(themeAssetsSource, themeAssetsTarget);
+    // Copy CSS
+    const cssSource = path.join(themePath, 'css');
+    const cssTarget = path.join(this.config.outputDir, 'css');
+    
+    if (await fs.pathExists(cssSource)) {
+      await fs.copy(cssSource, cssTarget);
       console.log('Copied theme CSS');
     }
+    
+    // Copy theme images
+    const imagesSource = path.join(themePath, 'images');
+    const imagesTarget = path.join(this.config.outputDir, 'images');
+    
+    if (await fs.pathExists(imagesSource)) {
+      await fs.copy(imagesSource, imagesTarget);
+      console.log('Copied theme images');
+    }
+  }
+
+  async loadThemeConfig() {
+    const themeConfigPath = path.join(
+      this.config.themesDir,
+      this.config.theme,
+      'theme.json'
+    );
+    
+    if (await fs.pathExists(themeConfigPath)) {
+      this.themeConfig = await fs.readJson(themeConfigPath);
+      console.log(`Loaded theme config for '${this.themeConfig.displayName}'`);
+      
+      // Apply variant if specified
+      if (this.config.themeVariant && this.themeConfig.variants[this.config.themeVariant]) {
+        const variant = this.themeConfig.variants[this.config.themeVariant];
+        this.config.bodyClass = variant.bodyClass;
+        this.config.themeBackground = variant.background;
+        console.log(`Applied theme variant: ${variant.name}`);
+      }
+      
+      // Merge theme options with config
+      this.themeOptions = this.mergeThemeOptions();
+    }
+  }
+
+  mergeThemeOptions() {
+    const options = {};
+    
+    if (this.themeConfig && this.themeConfig.options) {
+      // Set defaults from theme config
+      Object.keys(this.themeConfig.options).forEach(category => {
+        options[category] = {};
+        Object.keys(this.themeConfig.options[category]).forEach(key => {
+          const option = this.themeConfig.options[category][key];
+          options[category][key] = this.config[`theme_${category}_${key}`] !== undefined
+            ? this.config[`theme_${category}_${key}`]
+            : option.default;
+        });
+      });
+    }
+    
+    return options;
   }
 }
 

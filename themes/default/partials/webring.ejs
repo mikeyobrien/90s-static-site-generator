@@ -1,0 +1,19 @@
+<%# Webring navigation component %>
+<center>
+  <table border="2" cellpadding="5" cellspacing="0" bgcolor="#E0E0E0">
+    <tr>
+      <td align="center">
+        <font size="2" face="Arial, sans-serif">
+          <b><%= ringName || '90s Web Enthusiasts Ring' %></b>
+        </font>
+        <br>
+        <font size="1">
+          [ <a href="<%= prevUrl || '#' %>">&lt;&lt; Previous</a> |
+          <a href="<%= nextUrl || '#' %>">Next &gt;&gt;</a> |
+          <a href="<%= randomUrl || '#' %>">Random</a> |
+          <a href="<%= listUrl || '#' %>">List Sites</a> ]
+        </font>
+      </td>
+    </tr>
+  </table>
+</center>

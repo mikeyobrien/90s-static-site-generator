@@ -1,0 +1,144 @@
+{
+  "name": "default",
+  "displayName": "Classic 90s",
+  "description": "Authentic 90s web design with all the bells and whistles",
+  "author": "WebMaster",
+  "version": "1.0.0",
+  
+  "variants": {
+    "personal": {
+      "name": "Personal Homepage",
+      "description": "Comic Sans, bright colors, and maximum fun!",
+      "bodyClass": "theme-personal",
+      "background": "stars",
+      "primaryFont": "comic"
+    },
+    "corporate": {
+      "name": "Corporate",
+      "description": "Professional look with Arial and clean lines",
+      "bodyClass": "theme-corporate", 
+      "background": "solid",
+      "primaryFont": "arial"
+    },
+    "hacker": {
+      "name": "1337 H4x0r",
+      "description": "Matrix-style green text on black",
+      "bodyClass": "theme-hacker",
+      "background": "solid-black",
+      "primaryFont": "courier"
+    }
+  },
+  
+  "options": {
+    "effects": {
+      "blink": {
+        "label": "Enable blink text",
+        "default": true,
+        "description": "Make text blink like it's 1995"
+      },
+      "marquee": {
+        "label": "Enable scrolling marquees", 
+        "default": true,
+        "description": "Scrolling text for important announcements"
+      },
+      "rainbow": {
+        "label": "Enable rainbow text",
+        "default": false,
+        "description": "Multicolor gradient text effect"
+      },
+      "flames": {
+        "label": "Use flame dividers",
+        "default": true,
+        "description": "Animated flame horizontal rules"
+      }
+    },
+    
+    "layout": {
+      "width": {
+        "label": "Page width",
+        "default": "800",
+        "type": "select",
+        "options": ["640", "800", "1024"],
+        "description": "Fixed width in pixels"
+      },
+      "frames": {
+        "label": "Use frames layout",
+        "default": false,
+        "description": "Classic frames-based navigation"
+      },
+      "tables": {
+        "label": "Use table layouts",
+        "default": true,
+        "description": "Tables for pixel-perfect layouts"
+      }
+    },
+    
+    "components": {
+      "counter": {
+        "label": "Show hit counter",
+        "default": true,
+        "description": "Display visitor counter"
+      },
+      "guestbook": {
+        "label": "Enable guestbook",
+        "default": true,
+        "description": "Let visitors sign your guestbook"
+      },
+      "webring": {
+        "label": "Show webring navigation",
+        "default": false,
+        "description": "Join the 90s webring community"
+      },
+      "construction": {
+        "label": "Show under construction banner",
+        "default": false,
+        "description": "Let visitors know you're still building"
+      },
+      "badges": {
+        "label": "Show browser badges",
+        "default": true,
+        "description": "Best viewed with Netscape Navigator!"
+      }
+    },
+    
+    "colors": {
+      "background": {
+        "label": "Background color",
+        "default": "#C0C0C0",
+        "type": "color"
+      },
+      "text": {
+        "label": "Text color", 
+        "default": "#000000",
+        "type": "color"
+      },
+      "link": {
+        "label": "Link color",
+        "default": "#0000FF",
+        "type": "color"
+      },
+      "visited": {
+        "label": "Visited link color",
+        "default": "#800080",
+        "type": "color"
+      }
+    }
+  },
+  
+  "assets": {
+    "backgrounds": [
+      { "name": "stars", "file": "stars.gif", "tile": true },
+      { "name": "grid", "file": "grid.gif", "tile": true },
+      { "name": "clouds", "file": "clouds.gif", "tile": true }
+    ],
+    "dividers": [
+      { "name": "flame", "file": "flame.gif", "animated": true },
+      { "name": "rainbow", "file": "rainbow.gif", "animated": false }
+    ],
+    "badges": [
+      { "name": "netscape", "file": "netscape.gif", "width": 88, "height": 31 },
+      { "name": "ie", "file": "ie.gif", "width": 88, "height": 31 },
+      { "name": "html", "file": "html.gif", "width": 88, "height": 31 }
+    ]
+  }
+}
