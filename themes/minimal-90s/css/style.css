@@ -4,14 +4,14 @@
 /* CSS Variables for theme colors */
 :root {
   /* Light mode colors (default) */
-  --bg-color: #F5F5F5;
+  --bg-color: #FFFFFF;
   --text-color: #333333;
-  --header-bg: #E0E0E0;
+  --header-bg: #F0F0F0;
   --border-color: #CCCCCC;
   --link-color: #0000EE;
   --link-visited: #551A8B;
   --link-hover: #0000CC;
-  --code-bg: #EEEEEE;
+  --code-bg: #F5F5F5;
   --button-bg: #C0C0C0;
   --button-border: #000000;
   --button-text: #000000;
@@ -44,15 +44,14 @@ body {
   margin: 0;
   padding: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
 }
 
 /* Main container */
 .container {
   width: 100%;
-  margin: 0 auto;
+  margin: 0;
   background-color: var(--bg-color);
-  border-left: 1px solid var(--border-color);
-  border-right: 1px solid var(--border-color);
 }
 
 /* Headers */
@@ -131,10 +130,27 @@ a:hover {
 
 /* Content area */
 .content {
-  padding: 20px 40px;
+  padding: 20px;
   min-height: 400px;
-  max-width: 1200px;
-  margin: 0 auto;
+}
+
+/* Add some padding on larger screens for readability */
+@media screen and (min-width: 768px) {
+  .content {
+    padding: 20px 40px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .content {
+    padding: 30px 60px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .content {
+    padding: 40px 80px;
+  }
 }
 
 /* Blog post styles */
@@ -306,11 +322,7 @@ ul.bullet-list li:before {
   margin: 20px 0;
 }
 
-/* Subtle background pattern for light mode */
-[data-theme="light"] body {
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAEklEQVQImWNgYGD4z0AswK4SAFXuAf8EPy+xAAAAAElFTkSuQmCC');
-  background-repeat: repeat;
-}
+/* Removed subtle background pattern - clean full-width design */
 
 /* Responsive Design */
 @media screen and (max-width: 680px) {
