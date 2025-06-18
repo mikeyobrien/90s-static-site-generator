@@ -67,7 +67,7 @@ class Generator {
       
       console.log('Build completed successfully!');
       
-      return { posts, pages, navigation };
+      return { posts, pages, navigation: this.navigation };
     } catch (error) {
       console.error('Build failed:', error);
       throw error;
@@ -168,6 +168,9 @@ class Generator {
       theme: this.themeOptions,
       themeConfig: this.themeConfig,
       navigation: this.navigation || {}
+    }, {
+      filename: templatePath,
+      root: path.join(this.config.themesDir, this.config.theme)
     });
     
     // Render with base layout
