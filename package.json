@@ -1,0 +1,24 @@
+{
+  "name": "retro-ssg",
+  "version": "0.1.0",
+  "description": "A minimalist static site generator with 90s web aesthetic",
+  "main": "bin/retro-ssg.js",
+  "bin": {
+    "retro-ssg": "bin/retro-ssg.js"
+  },
+  "scripts": {
+    "test": "echo \"Testing CLI commands...\" && node bin/retro-ssg.js && echo \"\" && node bin/retro-ssg.js new && echo \"\" && node bin/retro-ssg.js build && echo \"\" && node bin/retro-ssg.js server"
+  },
+  "keywords": [
+    "static-site-generator",
+    "90s",
+    "retro",
+    "ssg",
+    "markdown"
+  ],
+  "author": "Webmaster",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
