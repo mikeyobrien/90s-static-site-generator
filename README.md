@@ -83,6 +83,7 @@ This project is currently under active development. Check our [GitHub Issues](ht
 - [x] Front matter parsing (YAML)
 - [x] EJS template system
 - [x] Basic 90s theme with authentic styling
+- [x] Minimal 90s blog theme with dark mode
 - [x] Static asset copying
 - [ ] Site creation wizard (Step 3)
 - [ ] Advanced theming (Step 4)
@@ -111,11 +112,38 @@ my-site/
 │   └── assets/          # Images, files, etc.
 ├── output/              # Generated HTML (created by build)
 ├── themes/              # Theme files
-│   └── default/         # Default 90s theme
+│   ├── default/         # Default 90s theme
+│   │   ├── layouts/     # Base templates
+│   │   ├── templates/   # Page-specific templates
+│   │   └── css/         # Stylesheets
+│   └── minimal-90s/     # Clean blog theme with dark mode
 │       ├── layouts/     # Base templates
 │       ├── templates/   # Page-specific templates
-│       └── css/         # Stylesheets
+│       ├── css/         # Stylesheets
+│       └── js/          # Dark mode toggle
 └── config.yml          # Site configuration (coming soon)
+```
+
+## 🎨 Available Themes
+
+### default
+The full 90s experience with all the nostalgic elements:
+- Animated backgrounds and GIFs
+- "Under Construction" badges
+- Retro color schemes
+- Perfect for fun, nostalgic sites
+
+### minimal-90s
+A clean, blog-focused theme that captures 90s aesthetics without the distractions:
+- Table-based layout (authentic to the era)
+- Dark mode toggle with cookie persistence
+- Simple navigation and typography
+- No animated GIFs or flashing elements
+- Perfect for personal blogs and journals
+
+To use a theme, specify it in your config.yml:
+```yaml
+theme: minimal-90s
 ```
 
 ## 🌟 Features

@@ -1,0 +1,27 @@
+<h1><%= title %></h1>
+<div class="post-meta">
+    Posted on <%= date.toLocaleDateString() %> by <%= author || site.author %>
+    <% if (locals.category) { %>
+    | Category: <%= category %>
+    <% } %>
+</div>
+
+<hr class="divider">
+
+<div class="post-content">
+    <%- content %>
+</div>
+
+<hr class="divider">
+
+<div class="post-nav">
+    <% if (locals.prev) { %>
+    <a href="<%= prev.url %>">← Previous: <%= prev.title %></a>
+    <% } %>
+    <% if (locals.prev && locals.next) { %>|<% } %>
+    <a href="/">Home</a>
+    <% if (locals.prev && locals.next) { %>|<% } %>
+    <% if (locals.next) { %>
+    <a href="<%= next.url %>">Next: <%= next.title %> →</a>
+    <% } %>
+</div>
