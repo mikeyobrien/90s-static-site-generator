@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title><%= page.title %> - <%= site.siteTitle %></title>
+    <meta name="description" content="<%= page.description || site.siteDescription %>">
+    <meta name="author" content="<%= page.author || 'Anonymous' %>">
+    <meta name="generator" content="90s Static Site Generator">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+    <table width="800" border="0" cellpadding="0" cellspacing="0" align="center">
+        <tr>
+            <td>
+                <!-- Header -->
+                <table width="100%" border="0" cellpadding="10" cellspacing="0" bgcolor="#000080">
+                    <tr>
+                        <td>
+                            <font color="#FFFFFF" size="5" face="Arial, Helvetica, sans-serif">
+                                <b><%= site.siteTitle %></b>
+                            </font>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Navigation -->
+                <table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#C0C0C0">
+                    <tr>
+                        <td>
+                            <center>
+                                <a href="/">Home</a> | 
+                                <a href="/pages/about.html">About</a> | 
+                                <a href="/pages/links.html">Links</a> | 
+                                <a href="/pages/guestbook.html">Guestbook</a>
+                            </center>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Main Content -->
+                <table width="100%" border="0" cellpadding="20" cellspacing="0" bgcolor="#FFFFFF">
+                    <tr>
+                        <td>
+                            <%- content %>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Footer -->
+                <table width="100%" border="0" cellpadding="10" cellspacing="0" bgcolor="#000080">
+                    <tr>
+                        <td align="center">
+                            <font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif">
+                                &copy; 1997 <%= site.siteTitle %> | 
+                                Last updated: <%= new Date().toISOString().split('T')[0] %> | 
+                                <a href="mailto:webmaster@example.com"><font color="#FFFF00">Email Webmaster</font></a>
+                            </font>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Hit Counter Placeholder -->
+                <center>
+                    <br>
+                    <img src="/images/counter.gif" alt="Hit Counter">
+                    <br>
+                    <font size="2">You are visitor number <b>31337</b></font>
+                </center>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
