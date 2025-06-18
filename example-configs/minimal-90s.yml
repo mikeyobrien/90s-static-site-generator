@@ -1,0 +1,17 @@
+# Example configuration for using the minimal-90s theme
+# A clean, blog-focused 90s theme with dark mode support
+
+title: "My Personal Blog"
+author: "Your Name"
+description: "A personal blog about technology, life, and the early web"
+tagline: "Thoughts from the Information Superhighway"
+
+# Use the minimal-90s theme
+theme: minimal-90s
+
+# Output directory
+outputDir: public
+
+# Blog-specific settings (for future use)
+postsPerPage: 10
+dateFormat: "MMMM D, YYYY"

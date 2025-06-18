@@ -1,0 +1,52 @@
+<center>
+    <h1>
+        <font color="#FF0000">W</font><font color="#FF7F00">E</font><font color="#FFFF00">L</font><font color="#00FF00">C</font><font color="#0000FF">O</font><font color="#4B0082">M</font><font color="#9400D3">E</font>
+    </h1>
+    <img src="/images/animations/under-construction.gif" alt="Under Construction">
+</center>
+
+<hr>
+
+<h2>📝 Latest Posts</h2>
+
+<table width="100%" border="1" cellpadding="10" cellspacing="0" bgcolor="#FFFFCC">
+    <% posts.forEach(function(post) { %>
+    <tr>
+        <td>
+            <font size="4" face="Arial, Helvetica, sans-serif">
+                <b><a href="<%= post.url %>"><%= post.title %></a></b>
+            </font>
+            <br>
+            <font size="2" color="#666666">
+                Posted on <%= new Date(post.date).toLocaleDateString() %> by <%= post.author || site.author %>
+            </font>
+            <br><br>
+            <font size="3">
+                <% if (post.excerpt) { %>
+                    <%= post.excerpt %>
+                <% } else { %>
+                    <%= post.content.replace(/<[^>]*>/g, '').substring(0, 150) %>...
+                <% } %>
+            </font>
+            <br><br>
+            <a href="<%= post.url %>">
+                <img src="/images/buttons/arrow.gif" border="0" alt="Read More"> Read More
+            </a>
+        </td>
+    </tr>
+    <% }); %>
+</table>
+
+<% if (posts.length === 0) { %>
+<center>
+    <font size="4" color="#FF0000">
+        <blink>No posts yet! Check back soon!</blink>
+    </font>
+</center>
+<% } %>
+
+<hr>
+
+<center>
+    <img src="/images/dividers/flame.gif" alt="Divider">
+</center>

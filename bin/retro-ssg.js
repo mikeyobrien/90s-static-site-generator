@@ -6,6 +6,8 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs-extra');
+const yaml = require('js-yaml');
 const Generator = require('../src/generator');
 
 // Get command line arguments (skip node and script name)
@@ -81,15 +83,27 @@ async function handleBuild() {
   print('🔨 Building your radical 90s website...', 'green');
   
   try {
-    // Load config or use defaults
+    // Load config from config.yml if it exists
+    let userConfig = {};
+    const configPath = path.join(process.cwd(), 'config.yml');
+    
+    if (await fs.pathExists(configPath)) {
+      const configContent = await fs.readFile(configPath, 'utf8');
+      userConfig = yaml.load(configContent) || {};
+      console.log('Loaded config from config.yml');
+    }
+    
+    // Merge with defaults
     const config = {
       contentDir: path.join(process.cwd(), 'content'),
-      outputDir: path.join(process.cwd(), 'output'),
+      outputDir: path.join(process.cwd(), userConfig.outputDir || 'output'),
       themesDir: path.join(process.cwd(), 'themes'),
-      theme: 'default',
-      siteTitle: 'My Radical 90s Website',
-      siteDescription: 'Welcome to the World Wide Web!',
-      baseUrl: ''
+      theme: userConfig.theme || 'default',
+      siteTitle: userConfig.title || 'My Radical 90s Website',
+      siteDescription: userConfig.description || 'Welcome to the World Wide Web!',
+      siteAuthor: userConfig.author || 'WebMaster',
+      siteTagline: userConfig.tagline || '',
+      baseUrl: userConfig.baseUrl || ''
     };
     
     // Create generator instance

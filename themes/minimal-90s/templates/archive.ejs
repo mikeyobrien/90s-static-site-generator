@@ -1,0 +1,15 @@
+<h1>Post Archive</h1>
+<p>All posts in chronological order:</p>
+
+<ul class="archive-list">
+    <% posts.forEach(function(post) { %>
+    <li class="archive-item">
+        <span class="archive-date"><%= post.date.toLocaleDateString() %></span>
+        <a href="<%= post.url %>"><%= post.title %></a>
+    </li>
+    <% }); %>
+</ul>
+
+<% if (posts.length === 0) { %>
+<p>No posts yet. Check back soon!</p>
+<% } %>

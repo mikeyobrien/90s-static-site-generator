@@ -43,6 +43,12 @@ class Generator {
       
       console.log(`Processed ${posts.length} posts and ${pages.length} pages`);
       
+      // Sort posts by date (newest first)
+      posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+      
+      // Generate index page
+      await this.generateIndexPage(posts);
+      
       // Copy static assets
       await this.copyAssets();
       
@@ -90,6 +96,16 @@ class Generator {
     // Convert markdown to HTML
     const html = this.md.render(markdown);
     
+    // Generate output path
+    const relativePath = path.relative(this.config.contentDir, filePath);
+    const outputPath = path.join(
+      this.config.outputDir,
+      relativePath.replace('.md', '.html')
+    );
+    
+    // Generate URL from relative path
+    const url = '/' + relativePath.replace('.md', '.html').replace(/\\/g, '/');
+    
     // Prepare page data
     const pageData = {
       title: frontMatter.title || 'Untitled',
@@ -98,15 +114,10 @@ class Generator {
       tags: frontMatter.tags || [],
       content: html,
       type: type,
+      url: url,
+      slug: path.basename(filePath, '.md'),
       ...frontMatter
     };
-    
-    // Generate output path
-    const relativePath = path.relative(this.config.contentDir, filePath);
-    const outputPath = path.join(
-      this.config.outputDir,
-      relativePath.replace('.md', '.html')
-    );
     
     // Render with template
     const renderedHtml = await this.renderTemplate(pageData, type);
@@ -145,18 +156,32 @@ class Generator {
       await fs.readFile(templatePath, 'utf-8') : 
       '<%- page.content %>';
     
+    // Prepare template data
+    const site = {
+      title: this.config.siteTitle,
+      description: this.config.siteDescription,
+      author: this.config.siteAuthor,
+      tagline: this.config.siteTagline,
+      baseUrl: this.config.baseUrl
+    };
+    
+    const templateData = {
+      // Direct properties for minimal-90s theme
+      ...pageData,
+      site,
+      // Page object for default theme
+      page: pageData
+    };
+    
     // Render content with specific template
-    const renderedContent = ejs.render(contentTemplate, {
-      page: pageData,
-      site: this.config
-    });
+    const renderedContent = ejs.render(contentTemplate, templateData);
     
     // Render with base layout
     const layout = await fs.readFile(layoutPath, 'utf-8');
     const finalHtml = ejs.render(layout, {
-      page: { ...pageData, content: renderedContent },
-      site: this.config,
-      content: renderedContent
+      ...templateData,
+      body: renderedContent,
+      content: renderedContent // For compatibility
     });
     
     return finalHtml;
@@ -172,17 +197,101 @@ class Generator {
     }
   }
 
-  async copyThemeAssets() {
-    const themeAssetsSource = path.join(
+  async generateIndexPage(posts) {
+    // Check if theme has an index template
+    const indexTemplatePath = path.join(
       this.config.themesDir,
       this.config.theme,
-      'css'
+      'templates',
+      'index.ejs'
     );
-    const themeAssetsTarget = path.join(this.config.outputDir, 'css');
     
-    if (await fs.pathExists(themeAssetsSource)) {
-      await fs.copy(themeAssetsSource, themeAssetsTarget);
-      console.log('Copied theme CSS');
+    const hasIndexTemplate = await fs.pathExists(indexTemplatePath);
+    
+    if (!hasIndexTemplate) {
+      // Use a default index template if theme doesn't provide one
+      console.log('No index template found, using default post listing');
+      
+      // Create a simple index page data
+      const indexData = {
+        title: 'Home',
+        content: '<h1>Recent Posts</h1>',
+        posts: posts.slice(0, 10), // Show latest 10 posts
+        date: new Date()
+      };
+      
+      // Render as a page
+      const renderedHtml = await this.renderTemplate(indexData, 'page');
+      const outputPath = path.join(this.config.outputDir, 'index.html');
+      
+      await fs.writeFile(outputPath, renderedHtml);
+      console.log(`Generated: ${outputPath}`);
+    } else {
+      // Use the theme's index template
+      const indexTemplate = await fs.readFile(indexTemplatePath, 'utf-8');
+      const layoutPath = path.join(
+        this.config.themesDir,
+        this.config.theme,
+        'layouts',
+        'base.ejs'
+      );
+      
+      // Prepare template data
+      const site = {
+        title: this.config.siteTitle,
+        description: this.config.siteDescription,
+        author: this.config.siteAuthor,
+        tagline: this.config.siteTagline,
+        baseUrl: this.config.baseUrl
+      };
+      
+      const templateData = {
+        title: 'Home',
+        posts: posts.slice(0, 10), // Show latest 10 posts
+        site,
+        page: { title: 'Home' }
+      };
+      
+      // Render index template
+      const renderedContent = ejs.render(indexTemplate, templateData);
+      
+      // Render with base layout
+      const layout = await fs.readFile(layoutPath, 'utf-8');
+      const finalHtml = ejs.render(layout, {
+        ...templateData,
+        body: renderedContent,
+        content: renderedContent
+      });
+      
+      const outputPath = path.join(this.config.outputDir, 'index.html');
+      await fs.writeFile(outputPath, finalHtml);
+      console.log(`Generated index page: ${outputPath}`);
+    }
+  }
+
+  async copyThemeAssets() {
+    // Copy entire theme directory to output
+    const themeSource = path.join(
+      this.config.themesDir,
+      this.config.theme
+    );
+    const themeTarget = path.join(
+      this.config.outputDir,
+      'themes',
+      this.config.theme
+    );
+    
+    if (await fs.pathExists(themeSource)) {
+      await fs.copy(themeSource, themeTarget);
+      console.log(`Copied theme assets for ${this.config.theme}`);
+    }
+    
+    // Also copy CSS to root for backward compatibility with default theme
+    const cssSource = path.join(themeSource, 'css');
+    const cssTarget = path.join(this.config.outputDir, 'css');
+    
+    if (await fs.pathExists(cssSource)) {
+      await fs.copy(cssSource, cssTarget);
     }
   }
 }

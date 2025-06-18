@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= locals.title ? title + ' - ' : '' %><%= site.title %></title>
+    <meta name="description" content="<%= locals.description || site.description %>">
+    <meta name="author" content="<%= locals.author || site.author %>">
+    <meta name="generator" content="90s Static Site Generator">
+    <link rel="stylesheet" type="text/css" href="/themes/minimal-90s/css/style.css">
+    <script type="text/javascript" src="/themes/minimal-90s/js/theme-toggle.js"></script>
+</head>
+<body>
+    <!-- Theme toggle button -->
+    <div class="theme-toggle">
+        <button id="theme-toggle-btn" type="button">Dark Mode</button>
+    </div>
+
+    <table class="container" border="0" cellpadding="0" cellspacing="0" align="center">
+        <tr>
+            <td>
+                <!-- Site Header -->
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="site-header">
+                            <h1 class="site-title"><%= site.title %></h1>
+                            <div class="site-tagline"><%= site.tagline || site.description %></div>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Navigation -->
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="nav-bar">
+                            <a href="/">Home</a> |
+                            <a href="/archive.html">Archive</a> |
+                            <a href="/pages/about.html">About</a>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Main Content -->
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="content">
+                            <%- body %>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Footer -->
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="site-footer">
+                            <div>Copyright © <%= new Date().getFullYear() %> <%= site.author %></div>
+                            <div class="last-updated">Last updated: <%= new Date().toISOString().split('T')[0] %></div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
