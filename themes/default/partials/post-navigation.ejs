@@ -1,0 +1,42 @@
+<%# Previous/Next post navigation %>
+<table width="100%" border="0" cellpadding="10" cellspacing="0">
+  <tr>
+    <td width="33%" align="left">
+      <% if (page.prevPost) { %>
+        <a href="<%= page.prevPost.url %>">
+          <img src="/images/buttons/prev.gif" alt="Previous" border="0">
+          <br>
+          <font size="2"><%= page.prevPost.title %></font>
+        </a>
+      <% } else { %>
+        <font size="2" color="#999999">
+          <img src="/images/buttons/prev-disabled.gif" alt="Previous" border="0">
+          <br>
+          No Previous Post
+        </font>
+      <% } %>
+    </td>
+    <td width="33%" align="center">
+      <a href="/">
+        <img src="/images/icons/home.gif" alt="Home" border="0">
+        <br>
+        <font size="2">Home</font>
+      </a>
+    </td>
+    <td width="33%" align="right">
+      <% if (page.nextPost) { %>
+        <a href="<%= page.nextPost.url %>">
+          <img src="/images/buttons/next.gif" alt="Next" border="0">
+          <br>
+          <font size="2"><%= page.nextPost.title %></font>
+        </a>
+      <% } else { %>
+        <font size="2" color="#999999">
+          <img src="/images/buttons/next-disabled.gif" alt="Next" border="0">
+          <br>
+          No Next Post
+        </font>
+      <% } %>
+    </td>
+  </tr>
+</table>

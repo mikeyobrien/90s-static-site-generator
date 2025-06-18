@@ -25,10 +25,13 @@
                 </table>
                 
                 <% if (theme && theme.effects && theme.effects.marquee) { %>
-                <%- include('partials/marquee', { text: 'Welcome to ' + site.siteTitle + '! Best viewed in Netscape Navigator 4.0+' }) %>
+                <%- include('../partials/marquee', { text: 'Welcome to ' + site.siteTitle + '! Best viewed in Netscape Navigator 4.0+' }) %>
                 <% } %>
                 
                 <!-- Navigation -->
+                <% if (navigation && navigation.pages) { %>
+                <%- include('../partials/navigation-horizontal') %>
+                <% } else { %>
                 <table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#C0C0C0">
                     <tr>
                         <td>
@@ -41,13 +44,14 @@
                         </td>
                     </tr>
                 </table>
+                <% } %>
                 
                 <!-- Main Content -->
                 <table width="100%" border="0" cellpadding="20" cellspacing="0" bgcolor="#FFFFFF">
                     <tr>
                         <td>
                             <% if (theme && theme.components && theme.components.construction && page.underConstruction) { %>
-                            <%- include('partials/under-construction') %>
+                            <%- include('../partials/under-construction') %>
                             <% } %>
                             
                             <%- content %>
@@ -71,13 +75,13 @@
                 <!-- Hit Counter -->
                 <% if (theme && theme.components && theme.components.counter) { %>
                 <br>
-                <%- include('partials/counter', { count: 31337 }) %>
+                <%- include('../partials/counter', { count: 31337 }) %>
                 <% } %>
                 
                 <!-- Webring -->
                 <% if (theme && theme.components && theme.components.webring) { %>
                 <br>
-                <%- include('partials/webring', { 
+                <%- include('../partials/webring', { 
                     ringName: '90s Web Enthusiasts Ring',
                     prevUrl: '#',
                     nextUrl: '#',
@@ -89,7 +93,7 @@
                 <!-- Browser Badges -->
                 <% if (theme && theme.components && theme.components.badges) { %>
                 <br>
-                <%- include('partials/badges', { 
+                <%- include('../partials/badges', { 
                     badges: {
                         netscape: true,
                         resolution: '800x600',
@@ -108,5 +112,16 @@
             </td>
         </tr>
     </table>
+    
+    <!-- 90s JavaScript Effects -->
+    <script type="text/javascript">
+    // Pass navigation data to JavaScript
+    window.siteName = "<%= site.siteTitle %>";
+    <% if (navigation) { %>
+    window.navigationPages = <%= JSON.stringify(navigation.pages || []) %>;
+    window.navigationPosts = <%= JSON.stringify(navigation.recentPosts || []) %>;
+    <% } %>
+    </script>
+    <script type="text/javascript" src="/js/90s-effects.js"></script>
 </body>
 </html>

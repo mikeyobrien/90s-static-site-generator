@@ -1,0 +1,58 @@
+<%# Horizontal navigation bar - classic 90s style %>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#000080">
+  <tr>
+    <td align="center">
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+            <a href="/">
+              <img src="/images/buttons/home.gif" 
+                   alt="Home" 
+                   width="80" height="30" 
+                   border="0"
+                   onmouseover="this.src='/images/buttons/home-hover.gif'"
+                   onmouseout="this.src='/images/buttons/home.gif'">
+            </a>
+          </td>
+          <% navigation.pages.forEach(function(page) { %>
+          <td>
+            <img src="/images/buttons/divider.gif" alt="|" width="2" height="30">
+          </td>
+          <td>
+            <a href="<%= page.url %>">
+              <img src="/images/buttons/nav-default.gif" 
+                   alt="<%= page.title %>" 
+                   width="80" height="30" 
+                   border="0">
+            </a>
+          </td>
+          <% }); %>
+          <td>
+            <img src="/images/buttons/divider.gif" alt="|" width="2" height="30">
+          </td>
+          <td>
+            <a href="/sitemap.html">
+              <img src="/images/buttons/sitemap.gif" 
+                   alt="Site Map" 
+                   width="80" height="30" 
+                   border="0">
+            </a>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<%# Fallback text navigation %>
+<noscript>
+  <center>
+    <font face="Arial, sans-serif" size="2">
+      <a href="/">Home</a> |
+      <% navigation.pages.forEach(function(page) { %>
+        <a href="<%= page.url %>"><%= page.title %></a> |
+      <% }); %>
+      <a href="/sitemap.html">Site Map</a>
+    </font>
+  </center>
+</noscript>

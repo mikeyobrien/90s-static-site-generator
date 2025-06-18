@@ -50,6 +50,15 @@ class Generator {
       
       console.log(`Processed ${posts.length} posts and ${pages.length} pages`);
       
+      // Build navigation data
+      this.navigation = this.buildNavigation(pages, posts);
+      
+      // Generate home page
+      await this.generateHomePage(posts, pages, this.navigation);
+      
+      // Generate sitemap
+      await this.generateSitemap(posts, pages);
+      
       // Copy static assets
       await this.copyAssets();
       
@@ -58,7 +67,7 @@ class Generator {
       
       console.log('Build completed successfully!');
       
-      return { posts, pages };
+      return { posts, pages, navigation: this.navigation };
     } catch (error) {
       console.error('Build failed:', error);
       throw error;
@@ -157,7 +166,11 @@ class Generator {
       page: pageData,
       site: this.config,
       theme: this.themeOptions,
-      themeConfig: this.themeConfig
+      themeConfig: this.themeConfig,
+      navigation: this.navigation || {}
+    }, {
+      filename: templatePath,
+      root: path.join(this.config.themesDir, this.config.theme)
     });
     
     // Render with base layout
@@ -167,6 +180,7 @@ class Generator {
       site: this.config,
       theme: this.themeOptions,
       themeConfig: this.themeConfig,
+      navigation: this.navigation || {},
       content: renderedContent
     }, {
       filename: layoutPath,
@@ -205,6 +219,15 @@ class Generator {
     if (await fs.pathExists(imagesSource)) {
       await fs.copy(imagesSource, imagesTarget);
       console.log('Copied theme images');
+    }
+    
+    // Copy JavaScript
+    const jsSource = path.join(themePath, 'js');
+    const jsTarget = path.join(this.config.outputDir, 'js');
+    
+    if (await fs.pathExists(jsSource)) {
+      await fs.copy(jsSource, jsTarget);
+      console.log('Copied theme JavaScript');
     }
   }
 
@@ -249,6 +272,151 @@ class Generator {
     }
     
     return options;
+  }
+
+  buildNavigation(pages, posts) {
+    console.log('Building navigation structure...');
+    
+    // Sort posts by date (newest first)
+    const sortedPosts = [...posts].sort((a, b) => 
+      new Date(b.date) - new Date(a.date)
+    );
+    
+    // Check for new posts (less than 7 days old)
+    const now = new Date();
+    const sevenDaysAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
+    
+    sortedPosts.forEach(post => {
+      post.isNew = new Date(post.date) > sevenDaysAgo;
+    });
+    
+    // Build navigation structure
+    const navigation = {
+      pages: pages.map(page => ({
+        title: page.title,
+        url: page.outputPath.replace(this.config.outputDir, ''),
+        order: page.navOrder || 999
+      })).sort((a, b) => a.order - b.order),
+      
+      recentPosts: sortedPosts.slice(0, 5).map(post => ({
+        title: post.title,
+        url: post.outputPath.replace(this.config.outputDir, ''),
+        date: post.date,
+        isNew: post.isNew
+      })),
+      
+      allPosts: sortedPosts
+    };
+    
+    // Add previous/next navigation for posts
+    sortedPosts.forEach((post, index) => {
+      post.prevPost = index < sortedPosts.length - 1 ? {
+        title: sortedPosts[index + 1].title,
+        url: sortedPosts[index + 1].outputPath.replace(this.config.outputDir, '')
+      } : null;
+      
+      post.nextPost = index > 0 ? {
+        title: sortedPosts[index - 1].title,
+        url: sortedPosts[index - 1].outputPath.replace(this.config.outputDir, '')
+      } : null;
+    });
+    
+    return navigation;
+  }
+
+  async generateHomePage(posts, pages, navigation) {
+    console.log('Generating home page...');
+    
+    const homeTemplate = path.join(
+      this.config.themesDir,
+      this.config.theme,
+      'templates',
+      'home.ejs'
+    );
+    
+    // Check if home template exists
+    if (!await fs.pathExists(homeTemplate)) {
+      console.log('No home template found, skipping home page generation');
+      return;
+    }
+    
+    const homeData = {
+      title: 'Welcome to ' + this.config.siteTitle,
+      description: this.config.siteDescription,
+      navigation: navigation,
+      recentPosts: navigation.recentPosts,
+      lastUpdated: new Date().toISOString(),
+      visitorCount: Math.floor(Math.random() * 99999) + 10000 // Random 90s counter
+    };
+    
+    const html = await this.renderTemplate(homeData, 'home');
+    const outputPath = path.join(this.config.outputDir, 'index.html');
+    
+    await fs.writeFile(outputPath, html);
+    console.log(`Generated home page: ${outputPath}`);
+  }
+
+  async generateSitemap(posts, pages) {
+    console.log('Generating sitemap...');
+    
+    const sitemapData = {
+      title: 'Sitemap - ' + this.config.siteTitle,
+      pages: pages.map(page => ({
+        title: page.title,
+        url: page.outputPath.replace(this.config.outputDir, ''),
+        date: page.date
+      })),
+      posts: posts.sort((a, b) => new Date(b.date) - new Date(a.date)).map(post => ({
+        title: post.title,
+        url: post.outputPath.replace(this.config.outputDir, ''),
+        date: post.date
+      }))
+    };
+    
+    const sitemapTemplate = path.join(
+      this.config.themesDir,
+      this.config.theme,
+      'templates',
+      'sitemap.ejs'
+    );
+    
+    // Use default sitemap if template doesn't exist
+    let html;
+    if (await fs.pathExists(sitemapTemplate)) {
+      html = await this.renderTemplate(sitemapData, 'sitemap');
+    } else {
+      // Generate basic sitemap
+      html = await this.generateBasicSitemap(sitemapData);
+    }
+    
+    const outputPath = path.join(this.config.outputDir, 'sitemap.html');
+    await fs.writeFile(outputPath, html);
+    console.log(`Generated sitemap: ${outputPath}`);
+  }
+
+  async generateBasicSitemap(data) {
+    const layout = `<!DOCTYPE HTML>
+<html>
+<head>
+  <title>${data.title}</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Site Map</h1>
+  <hr>
+  <h2>Pages</h2>
+  <ul>
+    ${data.pages.map(page => `<li><a href="${page.url}">${page.title}</a></li>`).join('\n    ')}
+  </ul>
+  <h2>Posts</h2>
+  <ul>
+    ${data.posts.map(post => `<li><a href="${post.url}">${post.title}</a> - ${post.date}</li>`).join('\n    ')}
+  </ul>
+  <hr>
+  <a href="/">Back to Home</a>
+</body>
+</html>`;
+    return layout;
   }
 }
 

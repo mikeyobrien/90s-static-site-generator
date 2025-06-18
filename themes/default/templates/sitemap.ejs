@@ -1,0 +1,123 @@
+<%# Site Map Template %>
+
+<center>
+  <h1>
+    <font face="Arial Black, sans-serif" size="6">
+      🗺️ SITE MAP
+    </font>
+  </h1>
+  <font size="2" color="#666666">
+    Complete directory of all pages on <%= site.siteTitle %>
+  </font>
+</center>
+
+<hr class="flame">
+
+<table width="100%" border="0" cellpadding="20" cellspacing="0">
+  <tr>
+    <!-- Pages Column -->
+    <td width="50%" valign="top">
+      <table width="100%" border="2" cellpadding="10" cellspacing="0" bgcolor="#E0E0FF">
+        <tr>
+          <td bgcolor="#000080">
+            <font color="#FFFFFF" size="4" face="Arial, sans-serif">
+              <b>📄 Pages</b>
+            </font>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <font size="2" face="Arial, sans-serif">
+              <ul>
+                <li><a href="/">Home Page</a></li>
+                <% if (page.pages && page.pages.length > 0) { %>
+                  <% page.pages.forEach(function(p) { %>
+                    <li>
+                      <a href="<%= p.url %>"><%= p.title %></a>
+                      <% if (p.date) { %>
+                        <font size="1" color="#666666">
+                          (Updated: <%= p.date %>)
+                        </font>
+                      <% } %>
+                    </li>
+                  <% }); %>
+                <% } %>
+                <li><a href="/sitemap.html">Site Map</a> <font size="1">(You are here!)</font></li>
+              </ul>
+            </font>
+          </td>
+        </tr>
+      </table>
+    </td>
+    
+    <!-- Posts Column -->
+    <td width="50%" valign="top">
+      <table width="100%" border="2" cellpadding="10" cellspacing="0" bgcolor="#FFE0E0">
+        <tr>
+          <td bgcolor="#800000">
+            <font color="#FFFFFF" size="4" face="Arial, sans-serif">
+              <b>📝 Blog Posts</b>
+            </font>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <font size="2" face="Arial, sans-serif">
+              <% if (page.posts && page.posts.length > 0) { %>
+                <ul>
+                  <% page.posts.forEach(function(post) { %>
+                    <li>
+                      <a href="<%= post.url %>"><%= post.title %></a>
+                      <br>
+                      <font size="1" color="#666666">
+                        Posted: <%= post.date %>
+                      </font>
+                    </li>
+                  <% }); %>
+                </ul>
+              <% } else { %>
+                <center>
+                  <font color="#666666">
+                    No blog posts yet!
+                  </font>
+                </center>
+              <% } %>
+            </font>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<hr class="flame">
+
+<!-- Site Statistics -->
+<center>
+  <table border="1" cellpadding="10" cellspacing="0" bgcolor="#FFFFCC">
+    <tr>
+      <td>
+        <font size="3" face="Arial, sans-serif">
+          <b>📊 Site Statistics</b>
+        </font>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <font size="2" face="Courier New, monospace">
+          Total Pages: <%= (page.pages ? page.pages.length : 0) + 1 %><br>
+          Total Posts: <%= page.posts ? page.posts.length : 0 %><br>
+          Total Content: <%= (page.pages ? page.pages.length : 0) + (page.posts ? page.posts.length : 0) + 1 %> items
+        </font>
+      </td>
+    </tr>
+  </table>
+</center>
+
+<br>
+
+<center>
+  <a href="/">
+    <img src="/images/buttons/home.gif" alt="Back to Home" border="0">
+  </a>
+</center>

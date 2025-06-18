@@ -1,0 +1,70 @@
+<%# Vertical navigation menu - 90s sidebar style %>
+<table width="150" border="1" cellpadding="5" cellspacing="0" bgcolor="#E0E0E0">
+  <tr>
+    <td bgcolor="#000080">
+      <center>
+        <font color="#FFFFFF" size="3" face="Arial, sans-serif">
+          <b>Navigation</b>
+        </font>
+      </center>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <font size="2" face="Arial, sans-serif">
+        <img src="/images/icons/arrow.gif" alt=">" width="12" height="12">
+        <a href="/">Home</a><br>
+        
+        <% navigation.pages.forEach(function(page) { %>
+          <img src="/images/icons/arrow.gif" alt=">" width="12" height="12">
+          <a href="<%= page.url %>"><%= page.title %></a><br>
+        <% }); %>
+        
+        <hr>
+        
+        <img src="/images/icons/arrow.gif" alt=">" width="12" height="12">
+        <a href="/sitemap.html">Site Map</a><br>
+        
+        <% if (theme && theme.components && theme.components.guestbook) { %>
+          <img src="/images/icons/arrow.gif" alt=">" width="12" height="12">
+          <a href="/guestbook.html">Guestbook</a><br>
+        <% } %>
+        
+        <hr>
+        
+        <center>
+          <a href="javascript:randomPage()">
+            <img src="/images/buttons/random.gif" 
+                 alt="Random Page!" 
+                 border="0">
+          </a>
+        </center>
+      </font>
+    </td>
+  </tr>
+  <% if (navigation.recentPosts && navigation.recentPosts.length > 0) { %>
+  <tr>
+    <td bgcolor="#000080">
+      <center>
+        <font color="#FFFFFF" size="3" face="Arial, sans-serif">
+          <b>Recent Posts</b>
+        </font>
+      </center>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <font size="1" face="Arial, sans-serif">
+        <% navigation.recentPosts.forEach(function(post) { %>
+          <img src="/images/icons/bullet.gif" alt="*" width="8" height="8">
+          <a href="<%= post.url %>"><%= post.title.substring(0, 20) %>...</a>
+          <% if (post.isNew) { %>
+            <%- include('./new-badge') %>
+          <% } %>
+          <br>
+        <% }); %>
+      </font>
+    </td>
+  </tr>
+  <% } %>
+</table>
