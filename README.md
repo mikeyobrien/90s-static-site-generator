@@ -47,12 +47,13 @@ retro-ssg server
 
 This project is currently under active development. Check our [GitHub Issues](https://github.com/mikeyobrien/90s-static-site-generator/issues) for the implementation roadmap.
 
-### Current Status: Step 1 - CLI Foundation ✅
+### Current Status: Step 2 - Theme System 🎨
 
 - [x] Basic CLI structure
 - [x] Command routing (new, build, server)
 - [x] Help system
-- [ ] Site creation (Step 2)
+- [x] Minimal 90s blog theme with dark mode
+- [ ] Site creation (Step 2 - In Progress)
 - [ ] Theme system (Step 3)
 - [ ] Markdown parsing (Step 4)
 - [ ] Build process (Step 5)
@@ -68,14 +69,32 @@ npm test
 
 This will test all available commands and show their placeholder outputs.
 
-## 🎨 Example Site Structure
+## 🎨 Available Themes
+
+### minimal-90s
+A clean, blog-focused theme that captures 90s aesthetics without the distractions:
+- Table-based layout (authentic to the era)
+- Dark mode toggle with cookie persistence
+- Simple navigation and typography
+- No animated GIFs or flashing elements
+- Perfect for personal blogs and journals
+
+### retro90s (Coming Soon)
+The full 90s experience with all the nostalgic elements:
+- Animated "Under Construction" GIFs
+- Tiled backgrounds and marquee text
+- Hit counters and webrings
+- Perfect for fun, nostalgic sites
+
+## 📁 Example Site Structure
 
 ```
 my-site/
 ├── content/          # Your markdown files
 ├── public/           # Generated HTML output
 ├── themes/           
-│   └── retro90s/    # Default 90s theme
+│   ├── retro90s/    # Default 90s theme
+│   └── minimal-90s/ # Clean blog theme with dark mode
 └── config.yml       # Site configuration
 ```
 

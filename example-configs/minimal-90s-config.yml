@@ -1,0 +1,45 @@
+# Example configuration for using the minimal-90s theme
+# A clean, blog-focused 90s theme with dark mode support
+
+site:
+  title: "My Personal Blog"
+  tagline: "Thoughts from the Information Superhighway"
+  description: "A personal blog about technology, life, and the early web"
+  author: "Your Name"
+  year: 2025
+  url: "https://yourblog.example.com"
+
+# Use the minimal-90s theme
+theme: minimal-90s
+
+# Blog-specific settings
+blog:
+  posts_per_page: 10
+  excerpt_length: 200
+  date_format: "YYYY-MM-DD"
+  
+# Navigation menu
+navigation:
+  - title: "Home"
+    url: "/"
+  - title: "Archive"
+    url: "/archive.html"
+  - title: "About"
+    url: "/about.html"
+
+# Build settings
+build:
+  output_dir: "public"
+  clean_before_build: true
+  
+# Content directories
+content:
+  posts: "content/posts"
+  pages: "content/pages"
+  
+# Optional: Custom CSS to further personalize
+custom_css: |
+  /* Add your custom styles here */
+  .site-title {
+    color: #000080; /* Navy blue title */
+  }

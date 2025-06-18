@@ -1,0 +1,311 @@
+/* ABOUTME: Minimal 90s theme CSS with light/dark mode support
+   ABOUTME: Provides clean blog-focused styling with authentic 90s HTML practices */
+
+/* CSS Variables for theme colors */
+:root {
+  /* Light mode colors (default) */
+  --bg-color: #F5F5F5;
+  --text-color: #333333;
+  --header-bg: #E0E0E0;
+  --border-color: #CCCCCC;
+  --link-color: #0000EE;
+  --link-visited: #551A8B;
+  --link-hover: #0000CC;
+  --code-bg: #EEEEEE;
+  --button-bg: #C0C0C0;
+  --button-border: #000000;
+  --button-text: #000000;
+  --timestamp-color: #666666;
+}
+
+/* Dark mode colors */
+[data-theme="dark"] {
+  --bg-color: #1A1A1A;
+  --text-color: #E0E0E0;
+  --header-bg: #2A2A2A;
+  --border-color: #444444;
+  --link-color: #00CCFF;
+  --link-visited: #CC99FF;
+  --link-hover: #00FFFF;
+  --code-bg: #2A2A2A;
+  --button-bg: #333333;
+  --button-border: #666666;
+  --button-text: #E0E0E0;
+  --timestamp-color: #999999;
+}
+
+/* Base styles */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Main container */
+.container {
+  width: 640px;
+  margin: 0 auto;
+  background-color: var(--bg-color);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 24px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 5px;
+}
+
+h2 {
+  font-size: 20px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 3px;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+/* Links */
+a {
+  color: var(--link-color);
+  text-decoration: underline;
+}
+
+a:visited {
+  color: var(--link-visited);
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+/* Site header */
+.site-header {
+  background-color: var(--header-bg);
+  border-bottom: 2px solid var(--border-color);
+  padding: 20px;
+  text-align: center;
+}
+
+.site-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.site-tagline {
+  font-size: 12px;
+  color: var(--timestamp-color);
+  margin-top: 5px;
+}
+
+/* Navigation */
+.nav-bar {
+  background-color: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px;
+  text-align: center;
+}
+
+.nav-bar a {
+  margin: 0 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+/* Content area */
+.content {
+  padding: 20px;
+  min-height: 400px;
+}
+
+/* Blog post styles */
+.post-entry {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.post-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  margin: 0 0 5px 0;
+}
+
+.post-meta {
+  font-size: 11px;
+  color: var(--timestamp-color);
+  margin-bottom: 10px;
+}
+
+.post-excerpt {
+  margin: 10px 0;
+}
+
+.read-more {
+  font-size: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Single post styles */
+.post-content {
+  margin: 20px 0;
+}
+
+.post-content p {
+  margin: 10px 0;
+}
+
+.post-content ul, .post-content ol {
+  margin: 10px 0 10px 30px;
+}
+
+.post-content li {
+  margin: 5px 0;
+}
+
+.post-content blockquote {
+  margin: 10px 20px;
+  padding: 10px;
+  border-left: 3px solid var(--border-color);
+  font-style: italic;
+}
+
+.post-content code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  background-color: var(--code-bg);
+  padding: 1px 3px;
+}
+
+.post-content pre {
+  background-color: var(--code-bg);
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  overflow-x: auto;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+}
+
+/* Post navigation */
+.post-nav {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  font-size: 12px;
+}
+
+.post-nav a {
+  margin: 0 10px;
+}
+
+/* Footer */
+.site-footer {
+  background-color: var(--header-bg);
+  border-top: 2px solid var(--border-color);
+  padding: 20px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--timestamp-color);
+}
+
+.last-updated {
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* Archive page */
+.archive-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.archive-item {
+  margin: 10px 0;
+  padding: 5px 0;
+  border-bottom: 1px dotted var(--border-color);
+}
+
+.archive-date {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+  color: var(--timestamp-color);
+  display: inline-block;
+  width: 100px;
+}
+
+/* Dark mode toggle button */
+.theme-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+.theme-toggle button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--button-border);
+  padding: 5px 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  box-shadow: 1px 1px 0 #000000;
+}
+
+.theme-toggle button:active {
+  box-shadow: none;
+  transform: translate(1px, 1px);
+}
+
+/* Tables (for authentic 90s layout) */
+table {
+  border-collapse: collapse;
+}
+
+td {
+  padding: 5px;
+}
+
+/* Lists with bullet character */
+ul.bullet-list {
+  list-style: none;
+  padding-left: 20px;
+}
+
+ul.bullet-list li:before {
+  content: "• ";
+  margin-right: 5px;
+  color: var(--text-color);
+}
+
+/* Simple divider */
+.divider {
+  border: 0;
+  border-top: 1px solid var(--border-color);
+  margin: 20px 0;
+}
+
+/* Subtle background pattern for light mode */
+[data-theme="light"] body {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAEklEQVQImWNgYGD4z0AswK4SAFXuAf8EPy+xAAAAAElFTkSuQmCC');
+  background-repeat: repeat;
+}

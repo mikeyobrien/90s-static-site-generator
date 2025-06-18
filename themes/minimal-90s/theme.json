@@ -1,0 +1,41 @@
+{
+  "name": "minimal-90s",
+  "version": "1.0.0",
+  "description": "A clean, minimal blog theme with authentic 90s styling and dark mode support",
+  "author": "Webmaster",
+  "templates": {
+    "index": "templates/index.html",
+    "post": "templates/post.html",
+    "page": "templates/page.html",
+    "archive": "templates/archive.html"
+  },
+  "assets": {
+    "css": [
+      "assets/css/minimal-90s.css"
+    ],
+    "js": [
+      "assets/js/theme-toggle.js"
+    ],
+    "images": "assets/images/"
+  },
+  "features": {
+    "darkMode": true,
+    "tableLayout": true,
+    "minimalDesign": true,
+    "noAnimations": true
+  },
+  "colorSchemes": {
+    "light": {
+      "background": "#F5F5F5",
+      "text": "#333333",
+      "link": "#0000EE",
+      "linkVisited": "#551A8B"
+    },
+    "dark": {
+      "background": "#1A1A1A",
+      "text": "#E0E0E0",
+      "link": "#00CCFF",
+      "linkVisited": "#CC99FF"
+    }
+  }
+}
