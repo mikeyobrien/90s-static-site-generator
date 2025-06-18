@@ -35,27 +35,58 @@ cd my-awesome-site
 
 ### Build Your Site
 ```bash
+# Build your site from markdown files
 retro-ssg build
+
+# Your site will be generated in the 'output' directory
 ```
+
+The build command will:
+- Process all Markdown files in `content/posts/` and `content/pages/`
+- Parse YAML front matter for metadata
+- Convert Markdown to HTML
+- Apply the retro 90s theme
+- Copy static assets from `content/assets/`
 
 ### Start Development Server
 ```bash
 retro-ssg server
 ```
 
+## 📝 Content Structure
+
+Create your content using Markdown with YAML front matter:
+
+```markdown
+---
+title: My Awesome Post
+date: 1997-03-15
+author: WebMaster
+tags: [web, technology, nostalgia]
+---
+
+# Welcome to my post!
+
+This is written in **Markdown** but will be rendered with 90s style!
+```
+
 ## 🛠️ Development Status
 
 This project is currently under active development. Check our [GitHub Issues](https://github.com/mikeyobrien/90s-static-site-generator/issues) for the implementation roadmap.
 
-### Current Status: Step 1 - CLI Foundation ✅
+### Current Status: Step 2 - Basic Static Site Generation ✅
 
 - [x] Basic CLI structure
 - [x] Command routing (new, build, server)
 - [x] Help system
-- [ ] Site creation (Step 2)
-- [ ] Theme system (Step 3)
-- [ ] Markdown parsing (Step 4)
-- [ ] Build process (Step 5)
+- [x] Markdown to HTML conversion
+- [x] Front matter parsing (YAML)
+- [x] EJS template system
+- [x] Basic 90s theme with authentic styling
+- [x] Static asset copying
+- [ ] Site creation wizard (Step 3)
+- [ ] Advanced theming (Step 4)
+- [ ] Navigation generation (Step 5)
 - [ ] And more...
 
 ## 🧪 Testing
@@ -68,16 +99,34 @@ npm test
 
 This will test all available commands and show their placeholder outputs.
 
-## 🎨 Example Site Structure
+## 🎨 Site Structure
 
 ```
 my-site/
-├── content/          # Your markdown files
-├── public/           # Generated HTML output
-├── themes/           
-│   └── retro90s/    # Default 90s theme
-└── config.yml       # Site configuration
+├── content/              # Your content
+│   ├── posts/           # Blog posts
+│   │   └── *.md
+│   ├── pages/           # Static pages
+│   │   └── *.md
+│   └── assets/          # Images, files, etc.
+├── output/              # Generated HTML (created by build)
+├── themes/              # Theme files
+│   └── default/         # Default 90s theme
+│       ├── layouts/     # Base templates
+│       ├── templates/   # Page-specific templates
+│       └── css/         # Stylesheets
+└── config.yml          # Site configuration (coming soon)
 ```
+
+## 🌟 Features
+
+### Currently Implemented (Step 2)
+- **Markdown Processing** - Full CommonMark support with code highlighting
+- **Front Matter** - YAML metadata for posts and pages
+- **EJS Templates** - Flexible templating with layouts
+- **90s Styling** - Authentic retro CSS with table layouts
+- **Asset Management** - Automatic copying of images and files
+- **Debug Logging** - Detailed build output for troubleshooting
 
 ## 🤝 Contributing
 

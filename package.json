@@ -7,7 +7,9 @@
     "retro-ssg": "bin/retro-ssg.js"
   },
   "scripts": {
-    "test": "echo \"Testing CLI commands...\" && node bin/retro-ssg.js && echo \"\" && node bin/retro-ssg.js new && echo \"\" && node bin/retro-ssg.js build && echo \"\" && node bin/retro-ssg.js server"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [
     "static-site-generator",
@@ -20,5 +22,14 @@
   "license": "MIT",
   "engines": {
     "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "fs-extra": "^11.3.0",
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0"
+  },
+  "devDependencies": {
+    "jest": "^30.0.0"
   }
 }

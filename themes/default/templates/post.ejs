@@ -1,0 +1,25 @@
+<h1><%= page.title %></h1>
+
+<table width="100%" border="0" cellpadding="5" cellspacing="0">
+    <tr>
+        <td bgcolor="#E0E0E0">
+            <font size="2" face="Arial, Helvetica, sans-serif">
+                <b>Posted by:</b> <%= page.author %> | 
+                <b>Date:</b> <%= page.date %>
+                <% if (page.tags && page.tags.length > 0) { %>
+                    | <b>Tags:</b> <%= page.tags.join(', ') %>
+                <% } %>
+            </font>
+        </td>
+    </tr>
+</table>
+
+<br>
+
+<%- page.content %>
+
+<hr>
+
+<center>
+    <a href="/">Back to Home</a>
+</center>

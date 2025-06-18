@@ -5,6 +5,9 @@
 
 'use strict';
 
+const path = require('path');
+const Generator = require('../src/generator');
+
 // Get command line arguments (skip node and script name)
 const args = process.argv.slice(2);
 const command = args[0];
@@ -74,13 +77,36 @@ function handleNew(siteName) {
   print('Site creation will be implemented in Step 2!', 'yellow');
 }
 
-function handleBuild() {
+async function handleBuild() {
   print('🔨 Building your radical 90s website...', 'green');
-  console.log('TODO: This will build the static site');
-  console.log('  - Reading markdown files from content/');
-  console.log('  - Processing with retro theme');
-  console.log('  - Generating HTML in public/');
-  print('Build functionality coming in Step 5!', 'yellow');
+  
+  try {
+    // Load config or use defaults
+    const config = {
+      contentDir: path.join(process.cwd(), 'content'),
+      outputDir: path.join(process.cwd(), 'output'),
+      themesDir: path.join(process.cwd(), 'themes'),
+      theme: 'default',
+      siteTitle: 'My Radical 90s Website',
+      siteDescription: 'Welcome to the World Wide Web!',
+      baseUrl: ''
+    };
+    
+    // Create generator instance
+    const generator = new Generator(config);
+    
+    // Build the site
+    const result = await generator.build();
+    
+    print(`✨ Build complete! Generated ${result.posts.length} posts and ${result.pages.length} pages`, 'green');
+    print(`📁 Your site is ready in the 'output' directory`, 'cyan');
+  } catch (error) {
+    print(`❌ Build failed: ${error.message}`, 'red');
+    if (process.env.DEBUG) {
+      console.error(error);
+    }
+    process.exit(1);
+  }
 }
 
 function handleServer() {
@@ -93,38 +119,40 @@ function handleServer() {
 }
 
 // Main command router
-switch (command) {
-  case 'new':
-    handleNew(commandArgs[0]);
-    break;
-    
-  case 'build':
-    handleBuild();
-    break;
-    
-  case 'server':
-  case 'serve':  // Allow both variants
-    handleServer();
-    break;
-    
-  case 'help':
-  case '--help':
-  case '-h':
-    showHelp();
-    break;
-    
-  case undefined:
-    // No command provided
-    showHelp();
-    break;
-    
-  default:
-    // Unknown command
-    print(`ERROR: Unknown command '${command}'`, 'red');
-    console.log('');
-    showHelp();
-    process.exit(1);
-}
+(async function() {
+  switch (command) {
+    case 'new':
+      handleNew(commandArgs[0]);
+      break;
+      
+    case 'build':
+      await handleBuild();
+      break;
+      
+    case 'server':
+    case 'serve':  // Allow both variants
+      handleServer();
+      break;
+      
+    case 'help':
+    case '--help':
+    case '-h':
+      showHelp();
+      break;
+      
+    case undefined:
+      // No command provided
+      showHelp();
+      break;
+      
+    default:
+      // Unknown command
+      print(`ERROR: Unknown command '${command}'`, 'red');
+      console.log('');
+      showHelp();
+      process.exit(1);
+  }
+})();
 
 // Debug logging for development
 if (process.env.DEBUG) {
